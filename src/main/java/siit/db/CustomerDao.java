@@ -2,22 +2,19 @@ package siit.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.init.ScriptStatementFailedException;
 import org.springframework.stereotype.Repository;
 import siit.model.Customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class CustomerDao {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+//    private String nume;
 
     public List<Customer> getAllCustomers(){
         return jdbcTemplate.query("SELECT * FROM customers",
@@ -25,8 +22,8 @@ public class CustomerDao {
     }
 
     public Customer getCustomerById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM customers WHERE id = ?",
-                this::getCustomer, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM customers WHERE id = " + id,
+                this::getCustomer);
     }
 
     public void updateCustomer(Customer customer) {
